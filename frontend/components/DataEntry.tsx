@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProjects } from "../src/api/project";
+import { postEntry } from "../src/api/entry";
 
 type Props = {
   day: Date;
@@ -8,7 +9,7 @@ type Props = {
 export function DataEntry(props: Props) {
   const [hours, setHours] = useState<number | null>();
   const [description, setDescription] = useState("");
-  const [selectedProjects, setSelectedProjects] = useState("");
+  const [selectedProject, setSelectedProject] = useState<number>();
   const [projects, setProjects] = useState<Project[]>();
 
   function handleHoursChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -19,10 +20,29 @@ export function DataEntry(props: Props) {
     setHours(value);
   }
 
+  function handleSubmit() {
+    if (hours && description && selectedProject) {
+        const entry : Entry = {
+            hours: hours,
+            project_id: selectedProject.toString(),
+            description: description,
+            day: props.day.toISOString()
+        }
+
+        const sendData = async () => {
+            await postEntry(entry);
+        };
+
+        sendData();
+    }
+}
+  
+
   useEffect(() => {
     const fetchData = async () => {
       const project = await getProjects();
       setProjects(project);
+      setSelectedProject(project[0].id)
     };
 
     fetchData().catch(console.error);
@@ -46,12 +66,13 @@ export function DataEntry(props: Props) {
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-start",
-              height: "80px",
+              height: "60px",
               overflow: "auto",
             }}
           >
             <p style={{ paddingTop: "10px", margin: "0" }}>Hours</p>
             <input
+                required
               type="number"
               value={hours ?? ""}
               onChange={(e) => handleHoursChange(e)}
@@ -62,12 +83,14 @@ export function DataEntry(props: Props) {
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-start",
-              height: "80px",
+              height: "60px",
               overflow: "auto",
             }}
           >
             <p style={{ paddingTop: "10px", margin: "0" }}>Project</p>
-            <select>
+            <select
+            value={selectedProject}
+            onChange={e => setSelectedProject(parseInt(e.target.value))}>
               {projects?.map((project) => {
                 return (
                   <option value={project.id} key={project.id}>{project.project_name}</option>
@@ -90,6 +113,9 @@ export function DataEntry(props: Props) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
+          </div>
+          <div>
+            <button style={{padding: '0.3em 0.6em', width:'5em'}} onClick={handleSubmit}>Log</button>
           </div>
         </div>
       </div>

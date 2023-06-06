@@ -3,7 +3,7 @@ import {CustomCalendar} from '../components/CustomCalendar'
 import {DataEntry} from '../components/DataEntry'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux';
-import { changeDay } from '../src/redux/store/actionCreators';
+import { changeDay } from '../src/redux/store/dayActionCreators';
 import { useCallback } from 'react';
 
 export function TimeLogging() {
@@ -22,7 +22,7 @@ export function TimeLogging() {
     <>
     <div className='time'>
     <h2 style={{textAlign:'left'}}>Time Logging</h2>
-      <div style={{width: '80vw', height: '100vh', maxWidth: '1200px'}}>
+      <div style={{width: '80vw', maxWidth: '1200px', minWidth:'800px'}}>
         <div style={{width: '54%', height: '300px',  float:'left', overflow:'auto' }}>
           <CustomCalendar saveDay={saveDay}/>
         </div>

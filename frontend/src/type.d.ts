@@ -9,11 +9,11 @@ type Project = {
 };
 
 interface Entry {
-  id: number;
+  id?: number;
   hours: number;
   project_id: string;
   description: string;
-  day: number;
+  day: string;
 }
 
 type DayState = {

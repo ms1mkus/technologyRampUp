@@ -8,7 +8,7 @@ import { Provider } from "react-redux"
 import thunk from "redux-thunk"
 
 import App from "./App"
-import reducer from "./redux/store/reducer"
+import reducer from "./redux/store/dayReducer"
 
 const store = configureStore({reducer: reducer, middleware: [thunk]})
 
@@ -16,7 +16,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
       <Provider store={store}>
         <App />
-      </Provider>,
-      rootElement
+      </Provider>
   </React.StrictMode>,
 )

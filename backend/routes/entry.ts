@@ -40,9 +40,11 @@ export async function entryPostRouteHandler(
     if (!(await getProjectById(project_id))) {
       throw new Error("The project inputted does not exist in the database.");
     }
-
+  
     const formattedDay = new Date(day);
+
     setTimeToZero(formattedDay);
+    console.log(formattedDay)
 
     let selectedDay = await getDayObjectByDate(formattedDay);
     if (selectedDay === null) {
