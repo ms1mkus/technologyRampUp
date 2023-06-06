@@ -9,6 +9,7 @@ const entryRouter = Router();
 
 entryRouter.post("/", entryPostRouteHandler);
 entryRouter.delete("/:id", entryDeleteRouteHandler);
+entryRouter.get("/", getEntryRouteHandler);
 
 export async function entryPostRouteHandler(
   req: RequestBody<Entry>,
@@ -86,6 +87,38 @@ export async function entryDeleteRouteHandler(
       throw new Error("Entry not found");
     }
     res.json(deletedEntry);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getEntryRouteHandler(
+  req: any,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { day } = req.body;
+    if (!day) {
+      return res.json(await pg.table("entry"));
+    }
+    if (typeof day !== "string") {
+      throw new Error("Invalid value for day");
+    }
+    if (!Date.parse(day)) {
+      throw new Error("Invalid value for day");
+    }
+    const formattedDay = new Date(day);
+    setTimeToZero(formattedDay);
+    console.log(formattedDay);
+
+    const dayId = await pg.table("day").where({ date: formattedDay });
+    if (!dayId) {
+      return null;
+    }
+    const filteredEntriesByDay = await pg.table("entry").where({ day: dayId });
+
+    res.json(filteredEntriesByDay);
   } catch (error) {
     next(error);
   }

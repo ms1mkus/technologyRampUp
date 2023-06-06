@@ -3,7 +3,9 @@ import { NavBar } from "../components/NavBar"
 import { TimeLogging } from "../pages/TimeLogging"
 import { Projects } from "../pages/Projects"
 import './App.css'
+import { getProjects } from "./api/project";
 function App() {
+  getProjects();
   return (
     <>
       
