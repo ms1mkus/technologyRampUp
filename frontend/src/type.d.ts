@@ -5,7 +5,7 @@ type Day = {
 
 type Project = {
   id: number;
-  projectName: string;
+  project_name: string;
 };
 
 interface Entry {
