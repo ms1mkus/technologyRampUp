@@ -1,18 +1,15 @@
 import { useState } from "react";
 
 export function DataEntry() {
-    const [hours, setHours] = useState("");
+    const [hours, setHours] = useState<number|null>();
 
     function handleHoursChange(e: React.ChangeEvent<HTMLInputElement>) {
-        if (e.target.value) {
-            setHours(e.target.value);
-        }
-        else {
-            setHours("");
-        }
+        const value = !Number.isNaN(e.target.valueAsNumber) ? e.target.valueAsNumber : null;
+
+        setHours(value);
     }
 
     return (
-        <input value={hours} onChange={(e) => handleHoursChange(e)} />
+        <input type="number" value={hours ?? ''} onChange={(e) => handleHoursChange(e)} />
     );
   }
