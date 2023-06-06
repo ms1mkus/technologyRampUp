@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction, Router } from "express";
 import pg from "../knexfile";
+import { Project, RequestBody } from "../types/types";
 
 const projectRouter = Router();
 
@@ -7,12 +8,11 @@ projectRouter.post("/", projectRouteHandler);
 projectRouter.get("/", getProjectsRouteHandler);
 
 async function projectRouteHandler(
-  req: Request,
+  req: RequestBody<Project>,
   res: Response,
   next: NextFunction
 ) {
   try {
-    console.log("req.body:", req.body); // Debug statement
     if (!req.body.projectName) {
       throw new Error("Project name doesn't exist");
     }
@@ -40,6 +40,11 @@ async function getProjectsRouteHandler(
   } catch (error) {
     next(error);
   }
+}
+
+export async function getProjectById(id: string): Promise<Project | null> {
+  const response = await pg.from("project").select().where({ id: id }).first();
+  return response || null;
 }
 
 export default projectRouter;
