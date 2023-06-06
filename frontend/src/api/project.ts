@@ -11,13 +11,7 @@ export async function getProjects() {
     });
     return data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log("error message:", error.message);
-      return error.message;
-    } else {
-      console.log("unexpected error:", error);
-      return "An unexpected error occurred";
-    }
+    return [];
   }
 }
 
@@ -31,12 +25,6 @@ export async function createProject(project: Project) {
     });
     return data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log("error message: ", error.message);
-      return error.message;
-    } else {
-      console.log("unexpected error: ", error);
-      return "An unexpected error occurred";
-    }
+    return [];
   }
 }
