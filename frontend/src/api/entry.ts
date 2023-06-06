@@ -12,13 +12,7 @@ export async function postEntry(entry: Entry) {
     });
     return data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log("error message: ", error.message);
-      return error.message;
-    } else {
-      console.log("unexpected error: ", error);
-      return "An unexpected error occurred";
-    }
+    return [];
   }
 }
 
@@ -27,13 +21,7 @@ export async function deleteEntry(id: string) {
     const { data } = await axios.delete<Entry>(`${baseURL}${id}`);
     return data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log("error message: ", error.message);
-      return error.message;
-    } else {
-      console.log("unexpected error: ", error);
-      return "An unexpected error occurred";
-    }
+    return [];
   }
 }
 
@@ -47,12 +35,6 @@ export async function getByDay(day: Date) {
     });
     return data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log("error message:", error.message);
-      return error.message;
-    } else {
-      console.log("unexpected error:", error);
-      return "An unexpected error occurred";
-    }
+    return [];
   }
 }
