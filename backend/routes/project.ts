@@ -13,15 +13,15 @@ async function projectRouteHandler(
   next: NextFunction
 ) {
   try {
-    if (!req.body.projectName) {
+    if (!req.body.project_name) {
       throw new Error("Project name doesn't exist");
     }
-    if (req.body.projectName.length < 3) {
+    if (req.body.project_name.length < 3) {
       throw new Error("Project name must exceed 3 characters");
     }
 
     const response = await pg("project")
-      .insert({ project_name: req.body.projectName })
+      .insert({ project_name: req.body.project_name })
       .returning("*");
     res.json(response);
   } catch (error) {

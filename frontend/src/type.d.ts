@@ -4,7 +4,7 @@ type Day = {
 };
 
 type Project = {
-  id: number;
+  id?: number;
   project_name: string;
 };
 
