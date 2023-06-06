@@ -8,8 +8,7 @@ function App() {
     <>
       
       <BrowserRouter>
-        <NavBar />
-        
+        <NavBar />        
         <Routes>
           <Route path="/" element={<TimeLogging/>}>
           </Route>
