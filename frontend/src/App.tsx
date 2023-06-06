@@ -6,7 +6,6 @@ import './App.css'
 function App() {
   return (
     <>
-      
       <BrowserRouter>
         <NavBar />        
         <Routes>
@@ -22,3 +21,4 @@ function App() {
 }
 
 export default App;
+
