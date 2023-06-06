@@ -1,4 +1,4 @@
-import * as actionTypes from "./actionTypes"
+import * as actionTypes from "./dayActionTypes"
 
 export function changeDay(day: Date) {
   const action: DayAction = {

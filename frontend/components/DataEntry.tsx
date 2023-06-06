@@ -50,7 +50,7 @@ export function DataEntry(props: Props) {
               overflow: "auto",
             }}
           >
-            <p style={{ paddingTop: "10px", margin: "0" }}>Project</p>
+            <p style={{ paddingTop: "10px", margin: "0" }}>Hours</p>
             <input
               type="number"
               value={hours ?? ""}
@@ -66,11 +66,11 @@ export function DataEntry(props: Props) {
               overflow: "auto",
             }}
           >
-            <p style={{ paddingTop: "10px", margin: "0" }}>Hours</p>
+            <p style={{ paddingTop: "10px", margin: "0" }}>Project</p>
             <select>
               {projects?.map((project) => {
                 return (
-                  <option value={project.id}>{project.project_name}</option>
+                  <option value={project.id} key={project.id}>{project.project_name}</option>
                 );
               })}
             </select>
