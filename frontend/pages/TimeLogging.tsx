@@ -3,6 +3,7 @@ import './TimeLogging.css'
 export function TimeLogging() {
   return (
     <>
+    <div className='time'>
     <h2 style={{textAlign:'left'}}>Time Logging</h2>
       <div style={{backgroundColor: '#fFf', width: '80vw', height: '100vh', maxWidth: '1200px'}}>
         <div style={{backgroundColor: '#ddd', width: '52%', height: '500px',  float:'left', }}>
@@ -17,6 +18,7 @@ export function TimeLogging() {
           <p>Logged entries         
           </p>
         </div>
+      </div>
       </div>
     </>
   )
