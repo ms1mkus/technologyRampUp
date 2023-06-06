@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-export function DataEntry() {
+
+type Props = {
+    day: Date;
+  };
+
+export function DataEntry(props: Props) {
     const [hours, setHours] = useState<number|null>();
 
     function handleHoursChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -10,6 +15,9 @@ export function DataEntry() {
     }
 
     return (
-        <input type="number" value={hours ?? ''} onChange={(e) => handleHoursChange(e)} />
+        <>
+        <p>{props.day.toDateString()}</p>
+            <input type="number" value={hours ?? ''} onChange={(e) => handleHoursChange(e)} />
+        </>
     );
   }

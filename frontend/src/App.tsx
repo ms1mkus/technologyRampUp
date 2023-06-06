@@ -8,7 +8,6 @@ function App() {
   getProjects();
   return (
     <>
-      
       <BrowserRouter>
         <NavBar />        
         <Routes>
@@ -24,3 +23,4 @@ function App() {
 }
 
 export default App;
+

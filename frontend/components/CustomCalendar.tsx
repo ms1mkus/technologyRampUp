@@ -2,12 +2,19 @@ import { useState } from 'react';
 import Calendar from 'react-calendar';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
 import './CustomCalendar.css'
-export function CustomCalendar() {
+
+type Props = {
+  saveDay: (article: Date | any) => void;
+};
+
+export function CustomCalendar(props: Props) {
   const [date, setDate] = useState(new Date());
 
   function handleChange(value:Value) {
     if(value) {
-      setDate(new Date(parseInt(value.valueOf().toString())))
+      const day = new Date(parseInt(value.valueOf().toString()));
+      setDate(day);
+      props.saveDay(day);
     }
   }
 
