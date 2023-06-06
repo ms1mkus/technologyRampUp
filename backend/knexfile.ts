@@ -1,5 +1,6 @@
+import { knex, Knex } from "knex";
 // Knex config file
-const config = {
+const config: Knex.Config = {
   client: "pg",
   connection: {
     host: "localhost",
@@ -10,4 +11,6 @@ const config = {
   },
 };
 
-module.exports = require("knex")(config);
+const pg = knex(config);
+
+export default pg;

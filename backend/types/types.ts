@@ -1,3 +1,5 @@
+import { Request, Response } from "express";
+
 type Day = {
   id: number;
   date: Date;
@@ -15,3 +17,7 @@ interface Entry {
   description: string;
   day: number;
 }
+
+type RequestBody<T> = Request<{}, {}, T>;
+
+export { Day, Project, Entry, RequestBody };
