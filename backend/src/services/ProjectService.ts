@@ -24,7 +24,7 @@ export class ProjectService {
     return response;
   }
 
-  async getProjectById(id: string): Promise<Project | null> {
+  async getProjectById(id: number): Promise<Project | null> {
     const response = await pg("project").where({ id }).first();
     return response || null;
   }

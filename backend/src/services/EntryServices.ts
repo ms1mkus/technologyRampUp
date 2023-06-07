@@ -26,7 +26,7 @@ export class EntryService {
       ) {
         throw new Error("Invalid value for description");
       }
-      if (typeof project_id !== "string" || project_id.trim() === "") {
+      if (typeof project_id !== "number") {
         throw new Error("Invalid value for project ID");
       }
       if (typeof day !== "string") {
@@ -80,34 +80,38 @@ export class EntryService {
       throw error;
     }
   }
-
   async getEntries(day?: string): Promise<EntryByDay[]> {
     try {
       if (!day) {
         return await pg.table("entry");
       }
 
-      if (typeof day !== "string") {
-        throw new Error("Invalid value for day");
-      }
-
-      if (!Date.parse(day)) {
-        throw new Error("Invalid value for day");
-      }
-
       const formattedDay = new Date(day);
-      setTimeToZero(formattedDay);
+      if (isNaN(formattedDay.getTime())) {
+        throw new Error("Invalid value for day");
+      }
 
-      const dayId = await pg.table("day").where({ date: formattedDay }).first();
-      if (!dayId) {
+      setTimeToZero(formattedDay);
+      console.log(formattedDay);
+
+      const dayRecord = await pg
+        .table("day")
+        .where({ date: formattedDay })
+        .first();
+      if (!dayRecord) {
         return [];
       }
 
       const filteredEntriesByDay = await pg
         .table("entry")
-        .where({ day: dayId })
-        .join("project", 'entry.project_id', '=', 'project.id')
-        .select('entry.id', 'entry.description', 'project.project_name', 'entry.hours');
+        .where({ day: dayRecord.id })
+        .join("project", "entry.project_id", "=", "project.id")
+        .select(
+          "entry.id",
+          "entry.description",
+          "project.project_name",
+          "entry.hours"
+        );
 
       return filteredEntriesByDay;
     } catch (error) {
