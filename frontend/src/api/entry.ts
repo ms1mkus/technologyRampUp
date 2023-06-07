@@ -28,7 +28,7 @@ export async function deleteEntry(id: string) {
 export async function getByDay(day: Date) {
   try {
     const { data } = await axios.get<Entry[]>(baseURL, {
-      params: { date: day },
+      params: { day: day },
       headers: {
         Accept: "application/json",
       },

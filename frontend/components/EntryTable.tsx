@@ -1,4 +1,4 @@
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { getByDay } from '../src/api/entry';
 import './EntryTable.css'
@@ -6,12 +6,6 @@ import './EntryTable.css'
 type Props = {
     day: Date;
 };
-
-const rows: GridRowsProp = [
-    { id: 1, col1: 'Hello', col2: 'World' },
-    { id: 2, col1: 'DataGridPro', col2: 'is Awesome' },
-    { id: 3, col1: 'MUI', col2: 'is Amazing' },
-  ];
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: '#', flex: 1, editable:false, align:'left' },

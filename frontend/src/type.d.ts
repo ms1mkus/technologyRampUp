@@ -16,6 +16,13 @@ interface Entry {
   day: string;
 }
 
+interface EntryByDay {
+  id?: number;
+  hours: number;
+  project_name: string;
+  description: string;
+}
+
 type DayState = {
   day: Date;
 };
