@@ -10,7 +10,7 @@ export async function getEntriesController(
   next: NextFunction
 ) {
   try {
-    const day = req.query.day as string;
+    const day = req.body.day as string;
     const entries = await entryService.getEntries(day);
     res.json(entries);
   } catch (error) {

@@ -1,7 +1,7 @@
 export type Entry = {
   id: number;
   hours: number;
-  project_id: string;
+  project_id: number;
   description: string;
   day: number;
 };

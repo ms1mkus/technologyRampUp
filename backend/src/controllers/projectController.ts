@@ -23,11 +23,15 @@ export async function getProjectByIdController(
 ) {
   try {
     const projectId = req.params.id;
-    const project = await projectService.getProjectById(projectId);
-    if (project) {
-      res.json(project);
+    if (parseInt(projectId)) {
+      const project = await projectService.getProjectById(parseInt(projectId));
+      if (project) {
+        res.json(project);
+      } else {
+        res.status(404).json({ message: "Project not found" });
+      }
     } else {
-      res.status(404).json({ message: "Project not found" });
+      throw new Error("Invalid project id");
     }
   } catch (error) {
     next(error);
