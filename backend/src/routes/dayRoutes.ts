@@ -8,7 +8,7 @@ import {
 const dayRouter = Router();
 
 dayRouter.get("/", getDaysController);
-dayRouter.get("/byday", getDayByDateController);
+dayRouter.get("/:id", getDayByDateController);
 dayRouter.post("/", createDayController);
 
 export default dayRouter;

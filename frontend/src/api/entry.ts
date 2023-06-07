@@ -25,12 +25,14 @@ export async function deleteEntry(id: string) {
   }
 }
 
-export async function getByDay(day: Date) {
+export async function getByDay(day: string) {
   try {
-    const { data } = await axios.get<Entry[]>(baseURL, {
-      params: { date: day },
+    const { data } = await axios.get<Entry[]>(`${baseURL}${day}`, {
       headers: {
-        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      data: {
+        date: day,
       },
     });
     return data;

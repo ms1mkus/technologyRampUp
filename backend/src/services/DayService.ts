@@ -2,21 +2,20 @@ import pg from "../../config/knexfile";
 import { Day } from "../models/Day";
 
 export class DayService {
-  async getDays(): Promise<Day[]> {
+  async getDays() {
     try {
-      const response = await pg.select().table("day");
-      console.log(response);
+      const response = await pg.select<Day[]>().table("day");
       return response;
     } catch (error) {
       throw error;
     }
   }
 
-  async getDayObjectByDate(day: Date): Promise<Day | null> {
+  async getDayObjectByDate(day: Date) {
     try {
       const response = await pg
         .from("day")
-        .select()
+        .select<Day[]>()
         .table("day")
         .where({ date: day })
         .first();

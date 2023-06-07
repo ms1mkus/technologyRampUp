@@ -7,7 +7,7 @@ import {
 
 const entryRouter = Router();
 
-entryRouter.get("/", getEntriesController);
+entryRouter.get("/:id", getEntriesController);
 entryRouter.post("/", createEntryController);
 entryRouter.delete("/:id", deleteEntryController);
 

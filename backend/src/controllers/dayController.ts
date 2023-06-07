@@ -22,7 +22,8 @@ export async function getDayByDateController(
   next: NextFunction
 ) {
   try {
-    const date = req.body.date;
+    const date = req.params.date;
+
     const day = await dayService.getDayObjectByDate(new Date(date));
     if (day) {
       res.json(day);
