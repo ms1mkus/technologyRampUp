@@ -4,9 +4,20 @@ import { createProject } from "../src/api/project";
 export function Projects() {
 
   const [name, setName] = useState("");
+  const [nameError, setNameError] = useState("");
 
-  function saveProject() {
-    if (name) {
+  function validateName() {
+    if(name.length >= 3) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  function saveProject(e: React.FormEvent<HTMLFormElement>) {
+    if (name && validateName()) {
+      setNameError("")
       const project : Project = {
         project_name: name
       }
@@ -16,16 +27,24 @@ export function Projects() {
       };
 
       sendData();
-  }
+    }
+    else {
+      setNameError("Project name needs to be atleast 3 characters long")
+      e.preventDefault();
+    }
   }
 
   return (
     <>
     <h3>Add new project</h3>
-    <p>Project name</p>
+    <p style={{ marginBlockEnd: '0'}}>Project name</p>
+    {nameError != "" && <p style={{margin: "0", display:'inline', color: 'red', fontSize:'10px'}}>{nameError}</p>}
+    <form onSubmit={(e) => {saveProject(e)}}>
     <input value={name} onChange={(e) => {setName(e.target.value)}}></input>
+    
     <br></br>
-    <button onClick={saveProject}>Save</button>
+    <button>Save</button>
+    </form>
     </>
   )
 }

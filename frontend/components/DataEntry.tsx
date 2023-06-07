@@ -8,6 +8,8 @@ type Props = {
 
 export function DataEntry(props: Props) {
   const [hours, setHours] = useState<number | null>();
+  const [descError, setDescError] = useState("");
+  const [hoursError, setHoursError] = useState("");
   const [description, setDescription] = useState("");
   const [selectedProject, setSelectedProject] = useState<number>();
   const [projects, setProjects] = useState<Project[]>();
@@ -20,20 +22,52 @@ export function DataEntry(props: Props) {
     setHours(value);
   }
 
-  function handleSubmit() {
-    if (hours && description && selectedProject) {
-        const entry : Entry = {
+  function validateDesc() {
+    if (description.length >= 3) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  function validateHours() {
+    if (hours && hours >= 0.25) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    if (hours !== undefined && hours !== null && description !== "" && selectedProject !== undefined && selectedProject !== null) {
+      if (validateDesc()) {
+        setDescError("")     
+        if (validateHours()) {
+          setHoursError("")
+          const entry : Entry = {
             hours: hours,
             project_id: selectedProject.toString(),
             description: description,
             day: props.day.toISOString()
-        }
+          }
 
-        const sendData = async () => {
+          const sendData = async () => {
             await postEntry(entry);
-        };
+          };
 
-        sendData();
+          sendData();
+        }
+        else {
+          e.preventDefault();
+          setHoursError("Hours value is 0.25 or greater");
+        }
+      }
+      else {
+        e.preventDefault();
+        setDescError("Description needs to be atleast 3 characters");
+      }
     }
 }
   
@@ -61,16 +95,18 @@ export function DataEntry(props: Props) {
           Selected day: {props.day.toDateString()}
         </div>
         <div style={{ marginRight: "1rem", marginLeft: "1rem" }}>
+          <form  onSubmit={(e) => {handleSubmit(e)}}>
           <div
             style={{
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-start",
-              height: "60px",
+              height: "65px",
               overflow: "auto",
             }}
           >
-            <p style={{ paddingTop: "10px", margin: "0" }}>Hours</p>
+            <p style={{ paddingTop: "5px", margin: "0" }}>Hours</p>
+            {hoursError != "" && <p style={{margin: "0", display:'inline', color: 'red', fontSize:'10px'}}>{hoursError}</p>}
             <input
                 required
               type="number"
@@ -87,7 +123,7 @@ export function DataEntry(props: Props) {
               overflow: "auto",
             }}
           >
-            <p style={{ paddingTop: "10px", margin: "0" }}>Project</p>
+            <p style={{ paddingTop: "5px", margin: "0" }}>Project</p>
             <select
             value={selectedProject}
             onChange={e => setSelectedProject(parseInt(e.target.value))}>
@@ -107,16 +143,19 @@ export function DataEntry(props: Props) {
               overflow: "auto",
             }}
           >
-            <p style={{ paddingTop: "10px", margin: "0" }}>Description</p>
+            <p style={{ paddingTop: "5px", margin: "0" }}>Description</p>
+            {descError != "" && <p style={{margin: "0", display:'inline', color: 'red', fontSize:'10px'}}>{descError}</p>}
             <textarea
+            required
               style={{ height: "60px" }}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
           <div>
-            <button style={{padding: '0.3em 0.6em', width:'5em'}} onClick={handleSubmit}>Log</button>
+            <button style={{padding: '0.3em 0.6em', width:'5em'}} type="submit">Log</button>
           </div>
+          </form>
         </div>
       </div>
     </>
