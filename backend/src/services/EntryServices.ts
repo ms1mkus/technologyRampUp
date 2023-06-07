@@ -85,7 +85,6 @@ export class EntryService {
       if (!day) {
         return await pg.table("entry");
       }
-
       const formattedDay = new Date(day);
       if (isNaN(formattedDay.getTime())) {
         throw new Error("Invalid value for day");
