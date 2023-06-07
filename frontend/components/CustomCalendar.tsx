@@ -4,7 +4,7 @@ import { Value } from 'react-calendar/dist/cjs/shared/types';
 import './CustomCalendar.css'
 
 type Props = {
-  saveDay: (article: Date | any) => void;
+  saveDay: (day: Date) => void;
 };
 
 export function CustomCalendar(props: Props) {

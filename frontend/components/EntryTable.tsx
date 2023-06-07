@@ -16,7 +16,7 @@ type Props = {
 
 export function EntryTable(props: Props) {
 
-    const [entries, setEntries] = useState<Entry[]>()
+    const [entries, setEntries] = useState<EntryByDay[]>()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,7 +32,7 @@ export function EntryTable(props: Props) {
     
   
   return (
-    <div style={{ height: 300, width: '100%' }}>
+    <div style={{ width: '100%' }}>
     {entries && <DataGrid rows={entries} columns={columns} disableRowSelectionOnClick autoHeight disableColumnMenu disableColumnFilter hideFooter/>}
   </div>
   );

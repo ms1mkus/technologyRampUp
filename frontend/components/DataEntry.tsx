@@ -48,7 +48,7 @@ export function DataEntry(props: Props) {
           setHoursError("")
           const entry : Entry = {
             hours: hours,
-            project_id: selectedProject.toString(),
+            project_id: selectedProject,
             description: description,
             day: props.day.toISOString()
           }
