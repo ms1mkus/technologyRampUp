@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux';
 import { changeDay } from '../src/redux/store/dayActionCreators';
 import { useCallback } from 'react';
+import {EntryTable} from '../components/EntryTable'
 
 export function TimeLogging() {
   const day : Date = useSelector(
@@ -29,9 +30,8 @@ export function TimeLogging() {
         <div style={{backgroundColor: '#ddd', width: '43%', height: '300px',  float:'right'}}>
           <DataEntry day={day}/>
         </div>
-        <div style={{backgroundColor: '#ddd', width: '100%', height: '145px',  float:'right', marginTop: '25px'}}>
-          <p>Logged entries         
-          </p>
+        <div style={{width: '100%', float:'right', marginTop: '25px'}}>
+          <EntryTable day={day}/>
         </div>
       </div>
       </div>

@@ -3,6 +3,7 @@ import setTimeToZero from "../utils/dateFormatter";
 import pg from "../../config/knexfile";
 import { ProjectService } from "./ProjectService";
 import { DayService } from "./DayService";
+import { EntryByDay } from "../models/EntryByDay";
 
 export class EntryService {
   private projectService: ProjectService;
@@ -80,7 +81,7 @@ export class EntryService {
     }
   }
 
-  async getEntries(day?: string): Promise<Entry[]> {
+  async getEntries(day?: string): Promise<EntryByDay[]> {
     try {
       if (!day) {
         return await pg.table("entry");
@@ -104,7 +105,9 @@ export class EntryService {
 
       const filteredEntriesByDay = await pg
         .table("entry")
-        .where({ day: dayId });
+        .where({ day: dayId })
+        .join("project", 'entry.project_id', '=', 'project.id')
+        .select('entry.id', 'entry.description', 'project.project_name', 'entry.hours');
 
       return filteredEntriesByDay;
     } catch (error) {

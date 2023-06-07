@@ -15,7 +15,6 @@ export function CustomCalendar(props: Props) {
       const day = new Date(parseInt(value.valueOf().toString()));
       setDate(day);
       props.saveDay(day);
-      console.log(day);
     }
   }
 
