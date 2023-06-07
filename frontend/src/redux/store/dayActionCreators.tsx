@@ -7,7 +7,3 @@ export function changeDay(day: Date) {
   }
   return action;
 }
-
-export function addProject(project: Project){
-  
-}

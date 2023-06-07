@@ -12,7 +12,7 @@ export function TimeLogging() {
     (state: DayState) => state.day
   );
 
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch: Dispatch<DayAction> = useDispatch();
 
   const saveDay = useCallback(
     (day: Date) => dispatch(changeDay(day)),

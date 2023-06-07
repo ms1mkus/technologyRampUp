@@ -11,9 +11,16 @@ type Project = {
 interface Entry {
   id?: number;
   hours: number;
-  project_id: string;
+  project_id: number;
   description: string;
   day: string;
+}
+
+interface EntryByDay {
+  id?: number;
+  hours: number;
+  project_name: string;
+  description: string;
 }
 
 type DayState = {
